@@ -333,7 +333,7 @@ class _TambahKontakPageState extends State<TambahKontakPage> {
 
   // ==================== TUGAS 4 ====================
 
-  final _kategoriController = TextEditingController();
+    final _kategoriController = TextEditingController();
 
   // ==================== SIMPAN ====================
 
@@ -457,7 +457,7 @@ class _TambahKontakPageState extends State<TambahKontakPage> {
 
               // ==================== KATEGORI ====================
 
-              TextFormField(
+              TextField(
                 controller: _kategoriController,
                 decoration: const InputDecoration(
                   labelText: 'Kategori',
