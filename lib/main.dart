@@ -60,6 +60,7 @@ class _BerandaPageState extends State<BerandaPage> {
   ];
 
   // ==================== TUGAS 6 ====================
+
   // Stream untuk pencarian kontak
   final StreamController<String> _searchController =
       StreamController<String>.broadcast();
@@ -91,6 +92,7 @@ class _BerandaPageState extends State<BerandaPage> {
   }
 
   // ==================== TUGAS 3 ====================
+
   // Membuat CircleAvatar dengan inisial nama
   Widget _avatarInisial(String nama) {
     String inisial = nama.trim().isNotEmpty
@@ -108,6 +110,7 @@ class _BerandaPageState extends State<BerandaPage> {
   }
 
   // ==================== TUGAS 6 ====================
+
   Widget _daftarKontakWidget() {
     return StreamBuilder<String>(
       stream: _searchController.stream,
@@ -151,6 +154,8 @@ class _BerandaPageState extends State<BerandaPage> {
       },
     );
   }
+
+  // ==================== FAVORIT ====================
 
   Widget _daftarFavoritWidget() {
     if (_daftarFavorit.isEmpty) {
@@ -323,34 +328,34 @@ class TambahKontakPage extends StatefulWidget {
 }
 
 class _TambahKontakPageState extends State<TambahKontakPage> {
-  
-  final _formKey = GlobalKey<FormState>(); 
-  
   // ==================== TUGAS 5 ====================
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final _namaController = TextEditingController();  
+  final _namaController = TextEditingController();
   final _emailController = TextEditingController();
   final _hpController = TextEditingController();
 
   // ==================== TUGAS 4 ====================
 
-    final _kategoriController = TextEditingController();
+  final _kategoriController = TextEditingController();
 
   // ==================== SIMPAN ====================
 
-void _simpan() {
-  if (_formKey.currentState!.validate()) {
-    final kontakBaru = Kontak(
-      nama: _namaController.text,
-      email: _emailController.text,
-      noHp: _hpController.text,
-    );
+  void _simpan() {
+    if (_formKey.currentState!.validate()) {
+      final kontakBaru = Kontak(
+        nama: _namaController.text.trim(),
+        email: _emailController.text.trim(),
+        noHp: _hpController.text.trim(),
+        kategori: _kategoriController.text.trim().isEmpty
+            ? null
+            : _kategoriController.text.trim(),
+      );
 
-    Navigator.pop(context, kontakBaru);
+      Navigator.pop(context, kontakBaru);
+    }
   }
-}
 
   @override
   void dispose() {
@@ -373,19 +378,19 @@ void _simpan() {
 
       // ==================== TUGAS 5 ====================
 
-body: Padding(
-  padding: const EdgeInsets.all(16.0),
-  child: Form(
-    key: _formKey,
-    child: Column(
-      children: [              // ==================== NAMA ====================
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              // ==================== NAMA ====================
 
               TextFormField(
                 controller: _namaController,
                 decoration: const InputDecoration(
                   labelText: 'Nama Lengkap',
                 ),
-
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return 'Nama wajib diisi';
@@ -405,7 +410,6 @@ body: Padding(
                 decoration: const InputDecoration(
                   labelText: 'Email',
                 ),
-
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return 'Email wajib diisi';
@@ -429,7 +433,6 @@ body: Padding(
                 decoration: const InputDecoration(
                   labelText: 'No Handphone',
                 ),
-
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return 'No Handphone wajib diisi';
