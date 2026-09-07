@@ -323,11 +323,14 @@ class TambahKontakPage extends StatefulWidget {
 }
 
 class _TambahKontakPageState extends State<TambahKontakPage> {
+  
+  final _formKey = GlobalKey<FormState>(); 
+  
   // ==================== TUGAS 5 ====================
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final _namaController = TextEditingController();
+  final _namaController = TextEditingController();  
   final _emailController = TextEditingController();
   final _hpController = TextEditingController();
 
@@ -337,23 +340,17 @@ class _TambahKontakPageState extends State<TambahKontakPage> {
 
   // ==================== SIMPAN ====================
 
-  void _simpan() {
-    // TUGAS 5
-    if (_formKey.currentState!.validate()) {
-      final kontakBaru = Kontak(
-        nama: _namaController.text.trim(),
-        email: _emailController.text.trim(),
-        noHp: _hpController.text.trim(),
+void _simpan() {
+  if (_formKey.currentState!.validate()) {
+    final kontakBaru = Kontak(
+      nama: _namaController.text,
+      email: _emailController.text,
+      noHp: _hpController.text,
+    );
 
-        // Jika kosong, kategori menjadi null
-        kategori: _kategoriController.text.trim().isEmpty
-            ? null
-            : _kategoriController.text.trim(),
-      );
-
-      Navigator.pop(context, kontakBaru);
-    }
+    Navigator.pop(context, kontakBaru);
   }
+}
 
   @override
   void dispose() {
@@ -376,15 +373,12 @@ class _TambahKontakPageState extends State<TambahKontakPage> {
 
       // ==================== TUGAS 5 ====================
 
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-
-        child: Form(
-          key: _formKey,
-
-          child: Column(
-            children: [
-              // ==================== NAMA ====================
+body: Padding(
+  padding: const EdgeInsets.all(16.0),
+  child: Form(
+    key: _formKey,
+    child: Column(
+      children: [              // ==================== NAMA ====================
 
               TextFormField(
                 controller: _namaController,
